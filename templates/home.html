@@ -1,0 +1,58 @@
+{% extends 'base.html'%} {% load crispy_forms_tags %} {% load static %} 
+{% block content %}
+<div class="container mt-5">
+  <div class="row align-items-center">
+    <div class="col-6">
+      <h1>Your Dream Car Just a Few Steps Away</h1>
+      <p>
+        Discover your dream car at GariKini! Explore our diverse inventory, from
+        sleek sedans to powerful SUVs. Browse, compare, and find the perfect
+        ride for every lifestyle with confidence.
+      </p>
+    </div>
+    <div class="col-6">
+      <img class="img-fluid" src="{% static 'images/header.jpg' %}" alt="" />
+    </div>
+  </div>
+</div>
+<br />
+<br />
+
+{% comment %} brand buttons {% endcomment %}
+<div class="container-fluid bg-light">
+  <div class="container">
+    <div class="d-flex justify-content-center">
+      {% for brand in brands %}
+      <a
+        class="btn btn-dark text-light m-2 mx-3"
+        href="{% url 'filter' brand.id %}"
+        >{{brand}}</a
+      >
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<br />
+
+{% comment %} all cars {% endcomment %}
+<div class="container-fluid">
+  <h4 class="mx-5 px-4">Total {{cars | length }} cars found</h4>
+  <br />
+</div>
+<div class="container-fluid d-flex flex-wrap mx-5">
+  {% for car in cars %}
+  <div class="card m-4 mt-2 text-center" style="width: 18rem">
+    <img class="card-img-top" src="{{car.thumbnail.url}}" alt="car image" />
+    <div class="card-body">
+      <h5 class="card-title">{{car.brand.name}} {{car.car_name}}</h5>
+      <h6>Brand: {{car.brand.name}}</h6>
+      <p>${{car.price}}</p>
+      <p class="card-text">{{car.description | truncatewords:10}}</p>
+      <a href="{% url 'detail' car.id %}" class="btn btn-primary"
+        >See Details</a
+      >
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% extends 'base.html'%} {% load crispy_forms_tags %} {% block content %}
+
+<h1 class="mt-5">Welcome {{user}}</h1>
+
+<a class="btn btn-warning mt-3" href="{% url 'edit' user.id %}">Edit Profile</a>
+<br />
+
+<div class="container d-flex flex-wrap mt-5">
+  {% for hist in history %}
+  <div class="card m-4 mt-2 text-center" style="width: 18rem">
+    <img class="card-img-top" src="{{hist.car_image.url}}" alt="car image" />
+    <div class="card-body">
+      <h5 class="card-title">{{hist.car_name}}</h5>
+      <h6>Brand: {{hist.car_brand}}</h6>
+      <p>Price: ${{hist.price}}</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock content %}
